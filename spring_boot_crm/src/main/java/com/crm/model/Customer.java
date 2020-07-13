@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
  
 @Entity
 public class Customer {
@@ -26,7 +30,8 @@ public class Customer {
     public void setId(int id) {
 		this.id = id;
 	}
-
+    
+    @NotBlank
 	public String getName() {
 		return name;
 	}
@@ -34,7 +39,8 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@NotBlank
 	public String getLastname() {
 		return lastname;
 	}
@@ -42,7 +48,9 @@ public class Customer {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
+	
+	@NotBlank
+	@Pattern(regexp="[^a-zA-Z]{3}-[^a-zA-Z]{3}-[^a-zA-Z]{4}")
 	public String getPhone() {
 		return phone;
 	}
@@ -50,7 +58,9 @@ public class Customer {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
+	@NotBlank
+	@Email
 	public String getEmail() {
 		return email;
 	}
@@ -61,6 +71,7 @@ public class Customer {
 	
 	@ManyToOne
 	@JoinColumn(name="country_id", nullable = false)
+	@NotNull
 	public Country getCountry() {
 		return country;
 	}
@@ -71,6 +82,7 @@ public class Customer {
 	
 	@ManyToOne
 	@JoinColumn(name="industry_id", nullable = false)
+	@NotNull
 	public Industry getIndustry() {
 		return industry;
 	}

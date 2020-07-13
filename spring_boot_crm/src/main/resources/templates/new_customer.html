@@ -14,24 +14,36 @@
         <br>
         <h2>Create New Customer</h2>
         <br>
-        <form action="#" th:action="@{/save}" th:object="${customer}"
+        <form action="#" th:action="@{/create}" th:object="${customer}"
             method="post">
             
             <div class="form-group">
 				<label for="name">First Name</label> <input type="text"
 					class="form-control" id="name" th:field="*{name}" name="name">
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+				</small>	
 			</div>
 			<div class="form-group">
 				<label for="lastname">Last Name</label> <input type="text"
 					class="form-control" id="lastname" th:field="*{lastname}" name="lastname">
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
+				</small>	
 			</div>
 			<div class="form-group">
 				<label for="phone">Phone</label> <input type="text"
 					class="form-control" id="phone" th:field="*{phone}" name="phone">
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">
+				</small>	
 			</div>
 			<div class="form-group">
 				<label for="email">Email</label> <input type="text"
 					class="form-control" id="email" th:field="*{email}" name="email">
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+				</small>	
 			</div>
 			<div class="form-group">
 				<label for="country">Country</label>
@@ -41,6 +53,9 @@
 					<option th:each="cou:${listCountries}" th:value="${cou.id}"
 							th:text="${cou.name}" />
 				</select>
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('country')}" th:errors="*{country}">
+				</small>
 			</div>
 			<div>
 				<label for="industry">Industry</label>
@@ -50,6 +65,9 @@
 					<option th:each="ind:${listIndustries}" th:value="${ind.id}"
 							th:text="${ind.name}" />
 				</select>
+				<small class="form-text text-danger"
+				 th:if="${#fields.hasErrors('industry')}" th:errors="*{industry}">
+				</small>
 			</div>
 			<br>
             <button type="submit" class="btn btn-success">Save</button>

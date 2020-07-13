@@ -2,9 +2,12 @@ package com.crm.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,10 +55,35 @@ public class CustomerController {
         return "new_customer";
     }
     
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createCustomer(@Valid @ModelAttribute("customer") Customer customer,
+    		BindingResult result, Model model) {
+    	if(result.hasErrors()) {
+    		List<Country> listCountries = countryService.listAll();
+            model.addAttribute("listCountries", listCountries);
+            
+            List<Industry> listIndustries = industryService.listAll();
+            model.addAttribute("listIndustries", listIndustries);
+            return "new_customer";
+    	} 
+    	
         service.save(customer);
-         
+        return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer,
+    		BindingResult result, Model model) {
+    	if(result.hasErrors()) {
+    		List<Country> listCountries = countryService.listAll();
+            model.addAttribute("listCountries", listCountries);
+            
+            List<Industry> listIndustries = industryService.listAll();
+            model.addAttribute("listIndustries", listIndustries);
+            return "edit_customer";
+    	} 
+    	
+        service.save(customer);
         return "redirect:/";
     }
     
