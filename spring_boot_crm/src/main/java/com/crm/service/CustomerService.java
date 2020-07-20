@@ -16,7 +16,10 @@ public class CustomerService {
     @Autowired
     private CustomerRepository repo;
      
-    public List<Customer> listAll() {
+    public List<Customer> listAll(String keyword) {
+    	if (keyword != null) {
+    		return repo.findAll(keyword);
+    	}
     	return repo.findAll();
     }
      

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,9 +35,11 @@ public class CustomerController {
     private IndustryService industryService;
      
     @RequestMapping("/")
-    public String viewHomePage(Model model) {
-    	List<Customer> listCustomers = service.listAll();
+    public String viewHomePage(Model model,
+    		@Param("keyword") String keyword) {
+    	List<Customer> listCustomers = service.listAll(keyword);
         model.addAttribute("listCustomers", listCustomers);
+        model.addAttribute("keyword", keyword);
          
         return "index";
     }
