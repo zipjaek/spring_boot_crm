@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="utf-8"/>
 <title>CRM Prototype</title>
@@ -19,7 +20,7 @@
 </div>
 <div class="container">
 	<br>
-	<div>
+	<div sec:authorize="hasAuthority('ADMIN')">
 	    <a href="/new" class="btn btn-primary">Add Customer</a>
     </div>  
     <div>
@@ -52,8 +53,12 @@
 	                <td th:text="${customer.email}"></td>
 	                <td th:text="${customer.country.name}"></td>
 	                <td th:text="${customer.industry.name}"></td>
-	                <td><a class="btn btn-info" th:href="@{/edit/{id}(id=${customer.id})}">Edit</a></td>
-					<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${customer.id})}">Delete</a></td>
+	                <td sec:authorize="hasAuthority('ADMIN')">
+	                	<a class="btn btn-info" th:href="@{/edit/{id}(id=${customer.id})}">Edit</a>
+	                </td>
+					<td sec:authorize="hasAuthority('ADMIN')">
+						<a class="btn btn-danger" th:href="@{/delete/{id}(id=${customer.id})}">Delete</a>
+					</td>
 	            </tr>
 	        </tbody>
 	    </table>
