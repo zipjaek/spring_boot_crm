@@ -1,2 +1,4 @@
 # spring_boot_crm
-CRM prototype. (Spring Boot + Data JPA + Hibernate + Thymeleaf + Spring Security + PostgreSQL)
+Deployed on Heroku => https://zipjaek.herokuapp.com/
+Login Information => Admin (username: admin, password: admin)
+                     User (username: user, password: user) 
